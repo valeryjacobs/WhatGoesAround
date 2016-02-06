@@ -15,14 +15,18 @@ namespace WhatGoesAround.Phone.Client
         private const string signalRHub = "http://whatgoesaroundcomesaround.azurewebsites.net/";
         private const string signalRHubProxy = "WGAHub";
 
-        private const string deviceId = "A";
-        private const string playerName = "Sorin";
+        private string deviceId = "A";
+        private string playerName = "Sorin";
+
+        private IHubProxy chat;
 
         public HubClient(MainViewModel viewModel)
         {
+            this.deviceId = viewModel.AppSettings.CurrentPlayerId;
+            this.playerName = viewModel.AppSettings.CurrentPlayerName;
 
             var hubConnection = new HubConnection(signalRHub);
-            var chat = hubConnection.CreateHubProxy(signalRHubProxy);
+            chat = hubConnection.CreateHubProxy(signalRHubProxy);
 
             // event registrations
             chat.On<Common.BeginGameMessage>("BeginGame", (message) =>
@@ -58,6 +62,15 @@ namespace WhatGoesAround.Phone.Client
             hubConnection.Start().Wait();
             chat.Invoke<string>("RegisterPlayer", deviceId, playerName);
 
+        }
+
+        public async Task SendButtonCombinationAsync(string deviceId, string playerName, IEnumerable<int> buttonCombination)
+        {
+            var message = new Common.PushButtonCombinationMessage();
+            message.ButtonIds.AddRange(buttonCombination);
+            message.DeviceId = deviceId;
+            message.PlayerName = playerName;
+            await chat.Invoke("PushButtonCombination", buttonCombination);
         }
     }
 }
