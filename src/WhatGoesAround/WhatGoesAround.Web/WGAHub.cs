@@ -17,5 +17,10 @@ namespace WhatGoesAround.Web
         {
             Clients.All.Send(name, message);
         }
+
+        //public void BroadCast(message)
+        //{
+        //    Clients.All.BroadCast(message);
+        //}
     }
 }

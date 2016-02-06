@@ -20,7 +20,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{
 		PublishScripts\Templates\WhatGoesAroundWeb.param.dev.json = PublishScripts\Templates\WhatGoesAroundWeb.param.dev.json
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatGoesAround.Console", "ConsoleApplication1\WhatGoesAround.Console.csproj", "{5B621C21-33A5-47FC-B038-AC5443053067}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatGoesAround.Console", "WhatGoesAround.Console\WhatGoesAround.Console.csproj", "{5B621C21-33A5-47FC-B038-AC5443053067}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

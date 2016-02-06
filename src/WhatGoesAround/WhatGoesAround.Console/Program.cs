@@ -5,17 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WhatGoesAround.Console
+namespace ConsoleApplication1
 {
     class Program
     {
-        public static IHubProxy HubProxy { get; set; }
-        const string ServerURI = "http://whatgoesaroundweb.azurewebsites.net/signalr";
-        public static HubConnection Connection { get; set; }
-
         static void Main(string[] args)
         {
-            var hubConnection = new HubConnection("http://localhost:11615/");
+            //var hubConnection = new HubConnection("http://localhost:11615/");
+            //http://whatgoesaroundweb.azurewebsites.net/
+
+            var hubConnection = new HubConnection("http://whatgoesaroundweb.azurewebsites.net/");
+
             var chat = hubConnection.CreateHubProxy("WGAHub");
             chat.On<string, string>("Send", (name, message) =>
             {
