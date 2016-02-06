@@ -54,14 +54,14 @@ namespace WhatGoesAround.Common
 
     public class BeginPlaySequenceMessage : Message
     {
-        public BeginPlaySequenceMessage(int roundNumber) : base("BeginPlaySequence")
+        public BeginPlaySequenceMessage() : base("BeginPlaySequence")
         {
         }
     }
 
     public class EndPlaySequenceMessage : Message
     {
-        public EndPlaySequenceMessage(int roundNumber) : base("EndPlaySequence")
+        public EndPlaySequenceMessage() : base("EndPlaySequence")
         {
         }
     }
@@ -78,6 +78,8 @@ namespace WhatGoesAround.Common
     {
         public string DeviceId { get; set; }
         public string PlayerName { get; set; }
+
+        public int ReflexTime { get; set; }
         public List<int> ButtonIds { get; set; }
         public PushButtonCombinationMessage() : base("PushButtonCombination") { this.ButtonIds = new List<int>(); }
     }
