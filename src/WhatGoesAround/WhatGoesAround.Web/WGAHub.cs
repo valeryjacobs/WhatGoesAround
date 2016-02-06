@@ -28,7 +28,7 @@ namespace WhatGoesAround.Web
         public void PushButtonCombination(PushButtonCombinationMessage message)
         {
             // TODO
-            Clients.All.BroadCast(message);
+            Clients.All.PushButtonCombination(message);
         }
 
         public void BeginPlaySequence(BeginPlaySequenceMessage message)
