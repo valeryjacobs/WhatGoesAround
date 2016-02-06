@@ -25,6 +25,12 @@ namespace WhatGoesAround.Web
             Clients.All.BroadCast(message);
         }
 
+        public void PushButtonCombination(PushButtonCombinationMessage message)
+        {
+            // TODO
+            Clients.All.BroadCast(message);
+        }
+
         public void SelectPlayer(Common.Action action)
         {
             Clients.All.SelectPlayer(action);
