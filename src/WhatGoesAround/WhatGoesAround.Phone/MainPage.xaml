@@ -9,21 +9,37 @@
     mc:Ignorable="d">
     <Page.Resources>
         <converters:ButtonColorConverter x:Key="ButtonColorConverter"/>
-        <Style x:Key="GameButtonStyle" TargetType="Button">
-            <Setter Property="Template">
-                <Setter.Value>
+        <converters:VisibilityConverter x:Key="VisibilityConverter"/>
+    </Page.Resources>
+
+    <StackPanel Orientation="Vertical">
+        <StackPanel Height="150" Orientation="Horizontal">
+            <TextBlock Text="{x:Bind Path=ViewModel.DisplayMessage}">
+            </TextBlock>
+        </StackPanel>
+        <Canvas x:Name="MainCanvas">
+
+            <Button x:Name="button1" Content="" Click="button1_Click" 
+                     Canvas.Left="{x:Bind Path=ViewModel.Button1.Left, Mode=OneWay}"
+                     Canvas.Top="{x:Bind Path=ViewModel.Button1.Top, Mode=OneWay}"
+                     Width="{x:Bind Path=ViewModel.Button1.Size, Mode=OneWay}"
+                     Height="{x:Bind Path=ViewModel.Button1.Size, Mode=OneWay}"
+                     Visibility="{x:Bind Path=ViewModel.ButtonsVisible, Mode=OneWay, Converter={StaticResource VisibilityConverter}}"
+                    >               
+
+                <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Grid>
-                            <Ellipse StrokeThickness="20">
+                            <Ellipse StrokeThickness="50">
                                 <Ellipse.Fill>
                                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                        <GradientStop Color="{Binding Path=Color, Converter={StaticResource ButtonColorConverter}, Mode=OneWay}" Offset="0"/>
+                                        <GradientStop Color="Red"/>
                                         <GradientStop Color="White" Offset="1"/>
                                     </LinearGradientBrush>
                                 </Ellipse.Fill>
                                 <Ellipse.Stroke>
                                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                        <GradientStop Color="{Binding Path=Color, Converter={StaticResource ButtonColorConverter}, Mode=OneWay}" Offset="0.492"/>
+                                        <GradientStop Color="Red"/>
                                         <GradientStop Color="White"/>
                                     </LinearGradientBrush>
                                 </Ellipse.Stroke>
@@ -31,27 +47,54 @@
                             <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                         </Grid>
                     </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </Page.Resources>
+                </Button.Template>
+            </Button>
+            
+            <Button x:Name="button2" Content="" Click="button2_Click" 
+                     Canvas.Left="{x:Bind Path=ViewModel.Button2.Left, Mode=OneWay}"
+                     Canvas.Top="{x:Bind Path=ViewModel.Button2.Top, Mode=OneWay}"
+                     Width="{x:Bind Path=ViewModel.Button2.Size, Mode=OneWay}"
+                     Height="{x:Bind Path=ViewModel.Button2.Size, Mode=OneWay}"
+                    Visibility="{x:Bind Path=ViewModel.ButtonsVisible, Mode=OneWay, Converter={StaticResource VisibilityConverter}}"
+                    >
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Ellipse StrokeThickness="50">
+                                <Ellipse.Fill>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="Blue"/>
+                                        <GradientStop Color="White" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Ellipse.Fill>
+                                <Ellipse.Stroke>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="Blue"/>
+                                        <GradientStop Color="White"/>
+                                    </LinearGradientBrush>
+                                </Ellipse.Stroke>
+                            </Ellipse>
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
 
-    <Canvas x:Name="ButtonsCanvas">
-
-        <Button x:Name="button1" Content="X"
-                 Canvas.Left="{Binding Path=ViewModel.Button1.Left, Mode=OneWay}"
-                 Canvas.Top="{Binding Path=ViewModel.Button1.Top, Mode=OneWay}"
-                 Width="{Binding Path=ViewModel.Button1.Size, Mode=OneWay}"
-                 Height="{Binding Path=ViewModel.Button1.Size, Mode=OneWay}"
-                 Style="{StaticResource GameButtonStyle}"/>
-        <Button x:Name="button2" Content="X"
-                 Canvas.Left="{Binding Path=ViewModel.Button2.Left, Mode=OneWay}"
-                 Canvas.Top="{Binding Path=ViewModel.Button2.Top, Mode=OneWay}"
-                 Width="{Binding Path=ViewModel.Button2.Size, Mode=OneWay}"
-                 Height="{Binding Path=ViewModel.Button2.Size, Mode=OneWay}"
-                 Style="{StaticResource GameButtonStyle}"/>
-    </Canvas>
-
+        </Canvas>
+        <ItemsControl ItemsSource="{x:Bind Path=ViewModel.CurrentButtonSequence, Mode=OneWay}" >
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" Height="100"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Button Width="60" Height="60" Background="{Binding Path=., Converter={StaticResource ButtonColorConverter}}" />
+                    <!--<Ellipse Width="40" Height="40" Fill="{Binding Path=., Converter={StaticResource ButtonColorConverter}}"/>-->
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </StackPanel>
 
 
 </Page>

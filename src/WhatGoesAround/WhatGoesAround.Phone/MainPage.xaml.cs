@@ -29,6 +29,26 @@ namespace WhatGoesAround.Phone
             this.ViewModel = new MainViewModel();
         }
 
-        public MainViewModel ViewModel { get; set; }
+
+
+        public MainViewModel ViewModel
+        {
+            get { return (MainViewModel)GetValue(ViewModelProperty); }
+            set { SetValue(ViewModelProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ViewModel.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ViewModelProperty =
+            DependencyProperty.Register("ViewModel", typeof(MainViewModel), typeof(MainPage), new PropertyMetadata(null));
+
+        private void button2_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.HandleButtonClick(2);
+        }
+
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.HandleButtonClick(1);
+        }
     }
 }
