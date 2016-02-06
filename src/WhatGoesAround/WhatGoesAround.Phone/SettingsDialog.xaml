@@ -1,0 +1,19 @@
+﻿<ContentDialog
+    x:Class="WhatGoesAround.Phone.SettingsDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WhatGoesAround.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="Settings"
+    PrimaryButtonText="OK"
+    SecondaryButtonText="Exit"
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
+    SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
+
+    <StackPanel Orientation="Vertical">
+        <TextBox x:Name="deviceId" PlaceholderText="Device ID" Text="{x:Bind ViewModel.CurrentPlayerId, Mode=TwoWay}"/>
+        <TextBox x:Name="playerName" PlaceholderText="Player Name" Text="{x:Bind ViewModel.CurrentPlayerName, Mode=TwoWay}"/>
+    </StackPanel>
+</ContentDialog>

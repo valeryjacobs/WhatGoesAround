@@ -37,7 +37,7 @@ namespace WhatGoesAround.Common
         public string DeviceId { get; set; }
         public bool Red { get; set; }
         public bool Blue { get; set; }
-        public SelectPlayerMessage(string deviceId, bool red, bool blue) : base("BeginGame")
+        public SelectPlayerMessage(string deviceId, bool red, bool blue) : base("SelectPlayer")
         {
             DeviceId = deviceId;
             Red = red;
@@ -52,6 +52,20 @@ namespace WhatGoesAround.Common
         }
     }
 
+    public class BeginPlaySequenceMessage : Message
+    {
+        public BeginPlaySequenceMessage(int roundNumber) : base("BeginPlaySequence")
+        {
+        }
+    }
+
+    public class EndPlaySequenceMessage : Message
+    {
+        public EndPlaySequenceMessage(int roundNumber) : base("EndPlaySequence")
+        {
+        }
+    }
+
     public class UpdatePlayerScoresMessage : Message
     {
         public Dictionary<string, int> PlayerScores { get; set; }
@@ -62,7 +76,9 @@ namespace WhatGoesAround.Common
 
     public class PushButtonCombinationMessage : Message
     {
+        public string DeviceId { get; set; }
+        public string PlayerName { get; set; }
         public List<int> ButtonIds { get; set; }
-        public PushButtonCombinationMessage() : base("PushButtonCombination") { }
+        public PushButtonCombinationMessage() : base("PushButtonCombination") { this.ButtonIds = new List<int>(); }
     }
 }

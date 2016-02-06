@@ -25,6 +25,24 @@ namespace WhatGoesAround.Web
             Clients.All.BroadCast(message);
         }
 
+        public void PushButtonCombination(PushButtonCombinationMessage message)
+        {
+            // TODO
+            Clients.All.BroadCast(message);
+        }
+
+        public void BeginPlaySequence(BeginPlaySequenceMessage message)
+        {
+            // TODO
+            Clients.All.BroadCast(message);
+        }
+
+        public void EndPlaySequence(EndPlaySequenceMessage message)
+        {
+            // TODO
+            Clients.All.BroadCast(message);
+        }
+
         public void SelectPlayer(Common.Action action)
         {
             Clients.All.SelectPlayer(action);
@@ -36,6 +54,11 @@ namespace WhatGoesAround.Web
                 DeviceRegister.Add(deviceId, Context.ConnectionId);
             else
                 DeviceRegister[deviceId] = Context.ConnectionId;
+        }
+
+        public void RegisterPlayer(string deviceId, string playerName)
+        {
+            // TODO
         }
     }
 }
