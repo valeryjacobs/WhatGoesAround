@@ -31,6 +31,18 @@ namespace WhatGoesAround.Web
             Clients.All.BroadCast(message);
         }
 
+        public void BeginPlaySequence(BeginPlaySequenceMessage message)
+        {
+            // TODO
+            Clients.All.BroadCast(message);
+        }
+
+        public void EndPlaySequence(EndPlaySequenceMessage message)
+        {
+            // TODO
+            Clients.All.BroadCast(message);
+        }
+
         public void SelectPlayer(Common.Action action)
         {
             Clients.All.SelectPlayer(action);

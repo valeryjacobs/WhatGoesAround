@@ -37,7 +37,7 @@ namespace WhatGoesAround.Common
         public string DeviceId { get; set; }
         public bool Red { get; set; }
         public bool Blue { get; set; }
-        public SelectPlayerMessage(string deviceId, bool red, bool blue) : base("BeginGame")
+        public SelectPlayerMessage(string deviceId, bool red, bool blue) : base("SelectPlayer")
         {
             DeviceId = deviceId;
             Red = red;
@@ -48,6 +48,20 @@ namespace WhatGoesAround.Common
     public class EndRoundMessage : Message
     {
         public EndRoundMessage(int roundNumber) : base("EndRound")
+        {
+        }
+    }
+
+    public class BeginPlaySequenceMessage : Message
+    {
+        public BeginPlaySequenceMessage(int roundNumber) : base("BeginPlaySequence")
+        {
+        }
+    }
+
+    public class EndPlaySequenceMessage : Message
+    {
+        public EndPlaySequenceMessage(int roundNumber) : base("EndPlaySequence")
         {
         }
     }
