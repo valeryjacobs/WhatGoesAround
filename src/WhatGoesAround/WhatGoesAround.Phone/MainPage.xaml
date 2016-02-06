@@ -13,11 +13,25 @@
     </Page.Resources>
 
     <StackPanel Orientation="Vertical">
-        <StackPanel Height="150" Orientation="Horizontal">
+        <StackPanel Height="50" Orientation="Horizontal">
             <TextBlock Text="{x:Bind Path=ViewModel.DisplayMessage}">
             </TextBlock>
         </StackPanel>
-        <Canvas x:Name="MainCanvas">
+
+        <ItemsControl ItemsSource="{x:Bind Path=ViewModel.CurrentButtonSequence, Mode=OneWay}" >
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" Height="50" Padding="10"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Ellipse Width="30" Height="30" Fill="{Binding Converter={StaticResource ButtonColorConverter}}"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        
+        <Canvas x:Name="MainCanvas" Background="Green" MinHeight="600" MinWidth="600">
 
             <Button x:Name="button1" Content="" Click="button1_Click" 
                      Canvas.Left="{x:Bind Path=ViewModel.Button1.Left, Mode=OneWay}"
@@ -30,18 +44,12 @@
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Grid>
-                            <Ellipse StrokeThickness="50">
+                            <Ellipse StrokeThickness="15">
                                 <Ellipse.Fill>
-                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                        <GradientStop Color="Red"/>
-                                        <GradientStop Color="White" Offset="1"/>
-                                    </LinearGradientBrush>
+                                    <SolidColorBrush Color="Red"/>
                                 </Ellipse.Fill>
                                 <Ellipse.Stroke>
-                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                        <GradientStop Color="Red"/>
-                                        <GradientStop Color="White"/>
-                                    </LinearGradientBrush>
+                                    <SolidColorBrush Color="DarkRed"/>
                                 </Ellipse.Stroke>
                             </Ellipse>
                             <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
@@ -60,18 +68,12 @@
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Grid>
-                            <Ellipse StrokeThickness="50">
+                            <Ellipse StrokeThickness="15">
                                 <Ellipse.Fill>
-                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                        <GradientStop Color="Blue"/>
-                                        <GradientStop Color="White" Offset="1"/>
-                                    </LinearGradientBrush>
+                                    <SolidColorBrush Color="Blue"/>
                                 </Ellipse.Fill>
                                 <Ellipse.Stroke>
-                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                        <GradientStop Color="Blue"/>
-                                        <GradientStop Color="White"/>
-                                    </LinearGradientBrush>
+                                    <SolidColorBrush Color="DarkBlue"/>
                                 </Ellipse.Stroke>
                             </Ellipse>
                             <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
@@ -81,19 +83,9 @@
             </Button>
 
         </Canvas>
-        <ItemsControl ItemsSource="{x:Bind Path=ViewModel.CurrentButtonSequence, Mode=OneWay}" >
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal" Height="100"/>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Button Width="60" Height="60" Background="{Binding Path=., Converter={StaticResource ButtonColorConverter}}" />
-                    <!--<Ellipse Width="40" Height="40" Fill="{Binding Path=., Converter={StaticResource ButtonColorConverter}}"/>-->
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+
+
+
     </StackPanel>
 
 

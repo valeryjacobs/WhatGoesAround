@@ -58,7 +58,7 @@ namespace WhatGoesAround.Phone.ViewModels
 
             this.CurrentButtonSequence = new ObservableCollection<int>();
             this._dispatcher = Windows.UI.Core.CoreWindow.GetForCurrentThread().Dispatcher;
-            this._buttonPressTimer = new Timer(OnButtonPressedTimerElapsed, null, 0, 500);
+            this._buttonPressTimer = new Timer(OnButtonPressedTimerElapsed, null, 500, Timeout.Infinite);
             this.ButtonsVisible = true;
 
             // TODO injection
@@ -70,13 +70,20 @@ namespace WhatGoesAround.Phone.ViewModels
             if (this.CurrentButtonSequence.Count == 0)
                 return;
 
-            // send button press sequence to server
-            await this.hubClient.SendButtonCombinationAsync(this.AppSettings.CurrentPlayerId, this.AppSettings.CurrentPlayerName, this.CurrentButtonSequence);
+            var combinationToSend = this.CurrentButtonSequence.ToArray();
 
             await _dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
                 this.CurrentButtonSequence.Clear();
-                this._buttonPressTimer.Change(0, 500); // reset the timer
+            });
+
+            // send button press sequence to server
+            await this.hubClient.SendButtonCombinationAsync(this.AppSettings.CurrentPlayerId, this.AppSettings.CurrentPlayerName, combinationToSend);
+
+            await _dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            {
+                this.CurrentButtonSequence.Clear();
+                this._buttonPressTimer.Change(500, Timeout.Infinite); // reset the timer
             });
         }
 
@@ -152,7 +159,7 @@ namespace WhatGoesAround.Phone.ViewModels
         {
             CurrentButtonSequence.Add(buttonId);
             _lastClickTime = DateTime.Now;
-            this._buttonPressTimer.Change(0, 500); // reset the timer
+            this._buttonPressTimer.Change(500, Timeout.Infinite); // reset the timer
         }
 
         #endregion

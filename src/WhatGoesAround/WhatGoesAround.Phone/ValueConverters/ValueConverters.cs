@@ -13,10 +13,12 @@ namespace WhatGoesAround.Phone.ValueConverters
     // converters
     public class ButtonColorConverter : IValueConverter
     {
+        private static SolidColorBrush brush1 = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0));
+        private static SolidColorBrush brush2 = new SolidColorBrush(Color.FromArgb(255, 0, 0, 255));
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             int color = (int)value;
-            return new SolidColorBrush(color == 1 ? Color.FromArgb(255, 0, 0, 0) : Color.FromArgb(0,0,255,0));
+            return color == 1 ? brush1 : brush2;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
