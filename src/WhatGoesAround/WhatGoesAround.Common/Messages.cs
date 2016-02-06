@@ -78,6 +78,8 @@ namespace WhatGoesAround.Common
     {
         public string DeviceId { get; set; }
         public string PlayerName { get; set; }
+
+        public int ReflexTime { get; set; }
         public List<int> ButtonIds { get; set; }
         public PushButtonCombinationMessage() : base("PushButtonCombination") { this.ButtonIds = new List<int>(); }
     }
