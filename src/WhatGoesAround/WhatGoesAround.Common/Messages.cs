@@ -54,14 +54,14 @@ namespace WhatGoesAround.Common
 
     public class BeginPlaySequenceMessage : Message
     {
-        public BeginPlaySequenceMessage(int roundNumber) : base("BeginPlaySequence")
+        public BeginPlaySequenceMessage() : base("BeginPlaySequence")
         {
         }
     }
 
     public class EndPlaySequenceMessage : Message
     {
-        public EndPlaySequenceMessage(int roundNumber) : base("EndPlaySequence")
+        public EndPlaySequenceMessage() : base("EndPlaySequence")
         {
         }
     }
