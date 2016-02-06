@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Microsoft.AspNet.SignalR;
+using WhatGoesAround.Common;
 
 namespace WhatGoesAround.Web
 {
@@ -18,9 +19,9 @@ namespace WhatGoesAround.Web
             Clients.All.Send(name, message);
         }
 
-        //public void BroadCast(message)
-        //{
-        //    Clients.All.BroadCast(message);
-        //}
+        public void BroadCast(Message message)
+        {
+            Clients.All.BroadCast(message);
+        }
     }
 }
