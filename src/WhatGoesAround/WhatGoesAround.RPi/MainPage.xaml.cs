@@ -32,7 +32,7 @@ namespace WhatGoesAround.RPi
         //http://localhost:11615/
         //private const string signalRHub = "http://localhost:11615/";
         private const string signalRHubProxy = "WGAHub";
-        private const string _piID = "B";
+        private const string _piID = "C0";
 
         private const int LED_PIN = 5;
         private const int BLUE_PIN = 6;
@@ -55,7 +55,7 @@ namespace WhatGoesAround.RPi
             var chat = hubConnection.CreateHubProxy(signalRHubProxy);
             chat.On <Common.Action>("SelectPlayer", (message) =>
             {              
-                if(message.DeviceId == _piID || message.DeviceId == "All")
+                if(message.DeviceId == _piID)
                     SetLeds(message);
             });
 

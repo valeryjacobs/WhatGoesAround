@@ -56,15 +56,25 @@ namespace ConsoleApplication1
 
             hubConnection.Start().Wait();
 
+            string[] devices = new string[] { "A", "B", "C", "D" };
+            string[] actions = new string[] { "red", "blue", "both", "off" };
 
             //chat.Invoke("Notify", "Console app", hubConnection.ConnectionId);
-            string msg = null;
 
-            while ((msg = Console.ReadLine()) != null)
+            Console.WriteLine("WhatGoesAround is starting. Press any key to start");
+            Console.ReadLine();
+
+            int rounds = 20;
+            Random randDevice = new Random();
+            for(int round=1; round < rounds; round++)
             {
-                string[] actions = msg.Split(';');
-                string DeviceId = actions[0];
-                switch(actions[1])
+
+    
+
+                string DeviceId = devices[randDevice.Next(3)];
+                string action = actions[randDevice.Next(3)];
+                Console.WriteLine(string.Format("Round {0} for {1} to press {2} ", round,DeviceId,action));
+                switch (action)
                 {
                     case "x":
                         chat.Invoke("BroadCast", new WhatGoesAround.Common.EndRoundMessage(1));
@@ -73,18 +83,19 @@ namespace ConsoleApplication1
                         chat.Invoke("BroadCast", new WhatGoesAround.Common.BeginRoundMessage(new Random().Next(0,10)));
                         break;
                     case "red":
-                        chat.Invoke("SelectPlayer", new WhatGoesAround.Common.Action(){DeviceId = DeviceId, Red = true, Blue = false });
+                        chat.Invoke("SelectPlayer", new WhatGoesAround.Common.Action(){DeviceId = DeviceId.ToUpper(), Red = true, Blue = false });
                         break;
                     case "blue":
-                        chat.Invoke("SelectPlayer", new WhatGoesAround.Common.Action() { DeviceId = DeviceId, Red = false, Blue = true });
+                        chat.Invoke("SelectPlayer", new WhatGoesAround.Common.Action() { DeviceId = DeviceId.ToUpper(), Red = false, Blue = true });
                         break;
-                    case "all":
-                        chat.Invoke("SelectPlayer", new WhatGoesAround.Common.Action() { DeviceId = "All", Red = true, Blue = true });
+                    case "both":
+                        chat.Invoke("SelectPlayer", new WhatGoesAround.Common.Action() { DeviceId = DeviceId.ToUpper(), Red = true, Blue = true });
                         break;
                     case "off":
-                        chat.Invoke("SelectPlayer", new WhatGoesAround.Common.Action() { DeviceId = "All", Red = false, Blue = false });
+                        chat.Invoke("SelectPlayer", new WhatGoesAround.Common.Action() { DeviceId = DeviceId.ToUpper(), Red = false, Blue = false });
                         break;
                 }
+                System.Threading.Tasks.Task.Delay(3000).Wait();
                 //chat.Invoke("Send", "Console app", msg).Wait();
             }
         }
