@@ -9,8 +9,8 @@ namespace WhatGoesAround.Common
     public class Action
     {
         public string DeviceId {get; set;}
-        public bool red { get; set; }
-        public bool blue { get; set; }
+        public bool Red { get; set; }
+        public bool Blue { get; set; }
 
     }
 }

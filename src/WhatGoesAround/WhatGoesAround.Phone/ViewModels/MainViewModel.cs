@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using WhatGoesAround.Common;
+using WhatGoesAround.Phone.Client;
 using Windows.UI;
 using Windows.UI.Core;
 
@@ -15,6 +16,7 @@ namespace WhatGoesAround.Phone.ViewModels
     public class MainViewModel : INotifyPropertyChanged
     {
         private GameViewModel _game;
+        private AppSettingsViewModel _appSettings;
 
         private ButtonViewModel _button1;
         private ButtonViewModel _button2;
@@ -26,9 +28,12 @@ namespace WhatGoesAround.Phone.ViewModels
         private string _displayMessage;
         private Timer _buttonPressTimer;
 
+        private HubClient hubClient;
+
         private ObservableCollection<int> _currentButtonSequence { get; set; } 
 
         public GameViewModel Game { get { return _game; } set { _game = value; OnPropertyChanged("Game"); } }
+        public AppSettingsViewModel AppSettings { get { return _appSettings; } set { _appSettings = value; OnPropertyChanged("AppSettings"); } }
         public ButtonViewModel Button1 { get { return _button1; } set { _button1 = value; OnPropertyChanged("Button1"); } }
         public ButtonViewModel Button2 { get { return _button2; } set { _button2 = value; OnPropertyChanged("Button2"); } }
         public ObservableCollection<int> CurrentButtonSequence { get { return _currentButtonSequence; } set { _currentButtonSequence = value; OnPropertyChanged("CurrentButtonSequence"); } }
@@ -47,6 +52,7 @@ namespace WhatGoesAround.Phone.ViewModels
         public MainViewModel()
         {
             this.Game = new GameViewModel();
+            this.AppSettings = new AppSettingsViewModel();
             this.Button1 = new ButtonViewModel() { Id = 1, Color = Color.FromArgb(255, 0, 0, 0), Left = 100, Top = 100, Size = 250 };
             this.Button2 = new ButtonViewModel() { Id = 2, Color = Color.FromArgb(0, 0, 255, 0), Left = 450, Top = 250, Size = 180 };
 
@@ -54,6 +60,9 @@ namespace WhatGoesAround.Phone.ViewModels
             this._dispatcher = Windows.UI.Core.CoreWindow.GetForCurrentThread().Dispatcher;
             this._buttonPressTimer = new Timer(OnButtonPressedTimerElapsed, null, 0, 500);
             this.ButtonsVisible = true;
+
+            // TODO injection
+            this.hubClient = new HubClient(this);
         }
 
         public async void OnButtonPressedTimerElapsed(Object stateInfo)
@@ -61,7 +70,8 @@ namespace WhatGoesAround.Phone.ViewModels
             if (this.CurrentButtonSequence.Count == 0)
                 return;
 
-            // TODO send button press sequence to server
+            // send button press sequence to server
+            await this.hubClient.SendButtonCombinationAsync(this.AppSettings.CurrentPlayerId, this.AppSettings.CurrentPlayerName, this.CurrentButtonSequence);
 
             await _dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
