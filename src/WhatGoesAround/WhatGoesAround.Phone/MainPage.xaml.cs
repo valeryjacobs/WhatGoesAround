@@ -26,7 +26,7 @@ namespace WhatGoesAround.Phone
         public MainPage()
         {
             this.InitializeComponent();
-            this.ViewModel = new MainViewModel();
+            this.ViewModel = new MainViewModel(this.MainCanvas);
         }
 
 
