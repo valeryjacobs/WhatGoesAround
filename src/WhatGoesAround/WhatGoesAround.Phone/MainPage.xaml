@@ -12,7 +12,7 @@
         <converters:VisibilityConverter x:Key="VisibilityConverter"/>
     </Page.Resources>
 
-    <StackPanel Orientation="Vertical">
+    <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <StackPanel Height="50" Orientation="Horizontal">
             <TextBlock Text="{x:Bind Path=ViewModel.DisplayMessage}">
             </TextBlock>
