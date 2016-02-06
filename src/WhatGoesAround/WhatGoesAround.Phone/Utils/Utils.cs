@@ -14,7 +14,7 @@ namespace WhatGoesAround.Phone.Utils
         public static void GetRandomPositions(MainViewModel viewModel, int containerWidth, int containerHeight)
         {
             int maxsize = Math.Min(containerHeight, containerWidth) / 4;
-            int minsize = 50;
+            int minsize = Convert.ToInt32(maxsize * 0.7);
             int size1 = random.Next(minsize, maxsize);
             int left1 = random.Next(size1, containerWidth - size1);
             int top1 = random.Next(size1, containerHeight - size1);
