@@ -17,6 +17,12 @@ namespace WhatGoesAround.Phone.ViewModels
         public ObservableCollection<PlayerViewModel> Players { get { return _players; } set { _players = value;  OnPropertyChanged("Players"); } }
         public int RoundNumber { get { return _roundNumber; } set { _roundNumber = value; OnPropertyChanged("RoundNumber"); } }
 
+        public GameViewModel()
+        {
+            this.Players = new ObservableCollection<PlayerViewModel>();
+
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void OnPropertyChanged(string propertyName)

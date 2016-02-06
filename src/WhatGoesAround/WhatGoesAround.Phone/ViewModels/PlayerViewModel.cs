@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WhatGoesAround.Phone.ViewModels
 {
-    public class PlayerViewModel : INotifyPropertyChanged
+    public class PlayerViewModel : INotifyPropertyChanged, IComparable
     {
         private string _name;
         private int _score;
@@ -16,6 +16,11 @@ namespace WhatGoesAround.Phone.ViewModels
         public int Score { get { return _score; } set { _score = value; OnPropertyChanged("Score"); } }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public int CompareTo(object obj)
+        {
+            return this.Score - ((PlayerViewModel)obj).Score;
+        }
 
         public void OnPropertyChanged(string propertyName)
         {

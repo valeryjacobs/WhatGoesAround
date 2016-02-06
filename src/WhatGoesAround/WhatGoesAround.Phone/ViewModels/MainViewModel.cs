@@ -72,6 +72,19 @@ namespace WhatGoesAround.Phone.ViewModels
 
             // DEBUG
             _ticker = new Timer(TickerElapsed, null, 2000, Timeout.Infinite);
+
+            // DEBUG scores
+            //var testScores = new Dictionary<string, int>();
+            //testScores.Add("Sorin", 45);
+            //testScores.Add("David", 8);
+            //testScores.Add("Eric", 39);
+            //testScores.Add("Johny", 66);
+
+            //this.OnPlayerScoresUpdating(
+            //    new UpdatePlayerScoresMessage()
+            //    {
+            //        PlayerScores = testScores
+            //    });
         }
 
         public async void TickerElapsed(Object stateInfo)
@@ -155,6 +168,8 @@ namespace WhatGoesAround.Phone.ViewModels
                     else
                         this.Game.Players.Add(new PlayerViewModel() { Name = playerScore.Key, Score = playerScore.Value });
                 }
+
+                Utils.Utils.SortDescending(this.Game.Players);
             });
         }
 
