@@ -4,20 +4,23 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI;
 
 namespace WhatGoesAround.Phone.ViewModels
 {
     public class ButtonViewModel : INotifyPropertyChanged
     {
-        private int _color;
-        private int _x;
-        private int _y;
-        private int _radius;
+        private int _id;
+        private Color _color;
+        private int _size;
+        private int _left;
+        private int _top;
 
-        public int Color { get { return _color; } set { _color = value; OnPropertyChanged("Color"); } }
-        public int X { get { return _x; } set { _x = value; OnPropertyChanged("X"); } }
-        public int Y { get { return _y; } set { _y = value; OnPropertyChanged("Y"); } }
-        public int Radius { get { return _radius; } set { _radius = value; OnPropertyChanged("Radius"); } }
+        public int Id { get { return _id; } set { _id = value; OnPropertyChanged("Id"); } }
+        public Color Color { get { return _color; } set { _color = value; OnPropertyChanged("Color"); } }
+        public int Size { get { return _size; } set { _size = value; OnPropertyChanged("Size"); } }
+        public int Left { get { return _left; } set { _left = value; OnPropertyChanged("Left"); } }
+        public int Top { get { return _top; } set { _top = value; OnPropertyChanged("Top"); } }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

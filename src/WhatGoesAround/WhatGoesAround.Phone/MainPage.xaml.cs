@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using WhatGoesAround.Phone.ViewModels;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -25,6 +26,9 @@ namespace WhatGoesAround.Phone
         public MainPage()
         {
             this.InitializeComponent();
+            this.ViewModel = new MainViewModel();
         }
+
+        public MainViewModel ViewModel { get; set; }
     }
 }
