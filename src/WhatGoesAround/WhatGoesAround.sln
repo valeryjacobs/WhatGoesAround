@@ -5,16 +5,36 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatGoesAround.Phone", "WhatGoesAround.Phone\WhatGoesAround.Phone.csproj", "{512AE117-A05A-49C9-BA15-359D47128318}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatGoesAround.Web", "WhatGoesAround.Web\WhatGoesAround.Web.csproj", "{73B03055-33DB-4872-A448-B9C22C7E4B3E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PublishScripts", "PublishScripts", "{B7D1AB25-DAB5-4FFA-8B3F-D7FDD842FE3C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{1645AB98-5562-4CE7-A41A-12246190E92A}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\Scripts\Deploy-AzureResourceGroup.ps1 = PublishScripts\Scripts\Deploy-AzureResourceGroup.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{79F150F8-D8A0-4EC4-BB7A-236733FA9CF3}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\Templates\WhatGoesAroundWeb.json = PublishScripts\Templates\WhatGoesAroundWeb.json
+		PublishScripts\Templates\WhatGoesAroundWeb.param.dev.json = PublishScripts\Templates\WhatGoesAroundWeb.param.dev.json
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatGoesAround.Console", "ConsoleApplication1\WhatGoesAround.Console.csproj", "{5B621C21-33A5-47FC-B038-AC5443053067}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
 		Debug|ARM = Debug|ARM
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
 		Release|ARM = Release|ARM
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{512AE117-A05A-49C9-BA15-359D47128318}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{512AE117-A05A-49C9-BA15-359D47128318}.Debug|ARM.ActiveCfg = Debug|ARM
 		{512AE117-A05A-49C9-BA15-359D47128318}.Debug|ARM.Build.0 = Debug|ARM
 		{512AE117-A05A-49C9-BA15-359D47128318}.Debug|ARM.Deploy.0 = Debug|ARM
@@ -24,6 +44,7 @@ Global
 		{512AE117-A05A-49C9-BA15-359D47128318}.Debug|x86.ActiveCfg = Debug|x86
 		{512AE117-A05A-49C9-BA15-359D47128318}.Debug|x86.Build.0 = Debug|x86
 		{512AE117-A05A-49C9-BA15-359D47128318}.Debug|x86.Deploy.0 = Debug|x86
+		{512AE117-A05A-49C9-BA15-359D47128318}.Release|Any CPU.ActiveCfg = Release|x86
 		{512AE117-A05A-49C9-BA15-359D47128318}.Release|ARM.ActiveCfg = Release|ARM
 		{512AE117-A05A-49C9-BA15-359D47128318}.Release|ARM.Build.0 = Release|ARM
 		{512AE117-A05A-49C9-BA15-359D47128318}.Release|ARM.Deploy.0 = Release|ARM
@@ -33,8 +54,44 @@ Global
 		{512AE117-A05A-49C9-BA15-359D47128318}.Release|x86.ActiveCfg = Release|x86
 		{512AE117-A05A-49C9-BA15-359D47128318}.Release|x86.Build.0 = Release|x86
 		{512AE117-A05A-49C9-BA15-359D47128318}.Release|x86.Deploy.0 = Release|x86
+		{73B03055-33DB-4872-A448-B9C22C7E4B3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73B03055-33DB-4872-A448-B9C22C7E4B3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73B03055-33DB-4872-A448-B9C22C7E4B3E}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{73B03055-33DB-4872-A448-B9C22C7E4B3E}.Debug|ARM.Build.0 = Debug|Any CPU
+		{73B03055-33DB-4872-A448-B9C22C7E4B3E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{73B03055-33DB-4872-A448-B9C22C7E4B3E}.Debug|x64.Build.0 = Debug|Any CPU
+		{73B03055-33DB-4872-A448-B9C22C7E4B3E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{73B03055-33DB-4872-A448-B9C22C7E4B3E}.Debug|x86.Build.0 = Debug|Any CPU
+		{73B03055-33DB-4872-A448-B9C22C7E4B3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73B03055-33DB-4872-A448-B9C22C7E4B3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73B03055-33DB-4872-A448-B9C22C7E4B3E}.Release|ARM.ActiveCfg = Release|Any CPU
+		{73B03055-33DB-4872-A448-B9C22C7E4B3E}.Release|ARM.Build.0 = Release|Any CPU
+		{73B03055-33DB-4872-A448-B9C22C7E4B3E}.Release|x64.ActiveCfg = Release|Any CPU
+		{73B03055-33DB-4872-A448-B9C22C7E4B3E}.Release|x64.Build.0 = Release|Any CPU
+		{73B03055-33DB-4872-A448-B9C22C7E4B3E}.Release|x86.ActiveCfg = Release|Any CPU
+		{73B03055-33DB-4872-A448-B9C22C7E4B3E}.Release|x86.Build.0 = Release|Any CPU
+		{5B621C21-33A5-47FC-B038-AC5443053067}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B621C21-33A5-47FC-B038-AC5443053067}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B621C21-33A5-47FC-B038-AC5443053067}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{5B621C21-33A5-47FC-B038-AC5443053067}.Debug|ARM.Build.0 = Debug|Any CPU
+		{5B621C21-33A5-47FC-B038-AC5443053067}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5B621C21-33A5-47FC-B038-AC5443053067}.Debug|x64.Build.0 = Debug|Any CPU
+		{5B621C21-33A5-47FC-B038-AC5443053067}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5B621C21-33A5-47FC-B038-AC5443053067}.Debug|x86.Build.0 = Debug|Any CPU
+		{5B621C21-33A5-47FC-B038-AC5443053067}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B621C21-33A5-47FC-B038-AC5443053067}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B621C21-33A5-47FC-B038-AC5443053067}.Release|ARM.ActiveCfg = Release|Any CPU
+		{5B621C21-33A5-47FC-B038-AC5443053067}.Release|ARM.Build.0 = Release|Any CPU
+		{5B621C21-33A5-47FC-B038-AC5443053067}.Release|x64.ActiveCfg = Release|Any CPU
+		{5B621C21-33A5-47FC-B038-AC5443053067}.Release|x64.Build.0 = Release|Any CPU
+		{5B621C21-33A5-47FC-B038-AC5443053067}.Release|x86.ActiveCfg = Release|Any CPU
+		{5B621C21-33A5-47FC-B038-AC5443053067}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1645AB98-5562-4CE7-A41A-12246190E92A} = {B7D1AB25-DAB5-4FFA-8B3F-D7FDD842FE3C}
+		{79F150F8-D8A0-4EC4-BB7A-236733FA9CF3} = {B7D1AB25-DAB5-4FFA-8B3F-D7FDD842FE3C}
 	EndGlobalSection
 EndGlobal
