@@ -12,16 +12,24 @@
         <converters:VisibilityConverter x:Key="VisibilityConverter"/>
     </Page.Resources>
 
-    <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-        <StackPanel Height="50" Orientation="Horizontal">
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal">
             <TextBlock Text="{x:Bind Path=ViewModel.DisplayMessage}">
             </TextBlock>
         </StackPanel>
 
-        <ItemsControl ItemsSource="{x:Bind Path=ViewModel.CurrentButtonSequence, Mode=OneWay}" >
+        <ItemsControl Grid.Row="1" ItemsSource="{x:Bind Path=ViewModel.CurrentButtonSequence, Mode=OneWay}" >
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal" Height="50" Padding="10"/>
+                    <StackPanel Orientation="Horizontal" Padding="10"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
@@ -31,7 +39,7 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
         
-        <Canvas x:Name="MainCanvas" Background="Green" MinHeight="600" MinWidth="600">
+        <Canvas Grid.Row="2" x:Name="MainCanvas" Background="Green">
 
             <Button x:Name="button1" Content="" Click="button1_Click" 
                      Canvas.Left="{x:Bind Path=ViewModel.Button1.Left, Mode=OneWay}"
@@ -86,7 +94,7 @@
 
 
 
-    </StackPanel>
+    </Grid>
 
 
 </Page>

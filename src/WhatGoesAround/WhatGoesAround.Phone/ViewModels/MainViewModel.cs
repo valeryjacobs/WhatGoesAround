@@ -10,6 +10,7 @@ using WhatGoesAround.Common;
 using WhatGoesAround.Phone.Client;
 using Windows.UI;
 using Windows.UI.Core;
+using Windows.UI.Xaml;
 
 namespace WhatGoesAround.Phone.ViewModels
 {
@@ -28,6 +29,7 @@ namespace WhatGoesAround.Phone.ViewModels
         private string _displayMessage;
         private Timer _buttonPressTimer;
         private Timer _ticker;
+        private FrameworkElement _container;
 
         private HubClient hubClient;
 
@@ -50,8 +52,10 @@ namespace WhatGoesAround.Phone.ViewModels
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public MainViewModel()
+        public MainViewModel(FrameworkElement container)
         {
+            this._container = container;
+
             this.Game = new GameViewModel();
             this.AppSettings = new AppSettingsViewModel();
             this.Button1 = new ButtonViewModel() { Id = 1, Color = Color.FromArgb(255, 0, 0, 0), Left = 100, Top = 100, Size = 250 };
@@ -158,7 +162,7 @@ namespace WhatGoesAround.Phone.ViewModels
 
             await _dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
-                Utils.Utils.GetRandomPositions(this, 600, 600);
+                Utils.Utils.GetRandomPositions(this, Convert.ToInt32(_container.ActualWidth), Convert.ToInt32(_container.ActualHeight));
                 this.ButtonsVisible = true;
                 this.CurrentButtonSequence.Clear();
                 this._sequenceBeginTime = DateTime.Now;
