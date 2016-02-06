@@ -43,5 +43,10 @@ namespace WhatGoesAround.Web
             else
                 DeviceRegister[deviceId] = Context.ConnectionId;
         }
+
+        public void RegisterPlayer(string deviceId, string playerName)
+        {
+            // TODO
+        }
     }
 }
