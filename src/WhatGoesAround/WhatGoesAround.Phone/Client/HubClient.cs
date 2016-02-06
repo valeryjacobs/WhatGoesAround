@@ -70,13 +70,14 @@ namespace WhatGoesAround.Phone.Client
             }
         }
 
-        public async Task SendButtonCombinationAsync(string deviceId, string playerName, IEnumerable<int> buttonCombination)
+        public async Task SendButtonCombinationAsync(string deviceId, string playerName, IEnumerable<int> buttonCombination, int reflexTimeMs)
         {
             try {
                 var message = new Common.PushButtonCombinationMessage();
                 message.ButtonIds.AddRange(buttonCombination);
                 message.DeviceId = deviceId;
                 message.PlayerName = playerName;
+                message.ReflexTime = reflexTimeMs;
                 Debug.Write("sending button combination:");
                 foreach (var i in message.ButtonIds)
                     Debug.Write(i + ",");
@@ -85,7 +86,7 @@ namespace WhatGoesAround.Phone.Client
             }
             catch (Exception ex)
             {
-                //Debug.WriteLine(ex);
+                Debug.WriteLine(ex);
             }
 
         }

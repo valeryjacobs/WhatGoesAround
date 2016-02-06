@@ -23,10 +23,11 @@ namespace WhatGoesAround.Phone.ViewModels
 
         private bool _buttonsVisible;
 
-        private DateTime _lastClickTime;
+        private DateTime _sequenceBeginTime;
         private CoreDispatcher _dispatcher;
         private string _displayMessage;
         private Timer _buttonPressTimer;
+        private Timer _ticker;
 
         private HubClient hubClient;
 
@@ -59,10 +60,26 @@ namespace WhatGoesAround.Phone.ViewModels
             this.CurrentButtonSequence = new ObservableCollection<int>();
             this._dispatcher = Windows.UI.Core.CoreWindow.GetForCurrentThread().Dispatcher;
             this._buttonPressTimer = new Timer(OnButtonPressedTimerElapsed, null, 500, Timeout.Infinite);
-            this.ButtonsVisible = true;
+            this.ButtonsVisible = false;
 
             // TODO injection
             this.hubClient = new HubClient(this);
+
+            // DEBUG
+            _ticker = new Timer(TickerElapsed, null, 2000, Timeout.Infinite);
+        }
+
+        public async void TickerElapsed(Object stateInfo)
+        {
+            if (!this.ButtonsVisible)
+            {
+                OnBeginPlaySequence(new BeginPlaySequenceMessage());
+            }
+            else
+            {
+                OnEndPlaySequence(new EndPlaySequenceMessage());
+            }
+            this._ticker.Change(2000, Timeout.Infinite);
         }
 
         public async void OnButtonPressedTimerElapsed(Object stateInfo)
@@ -77,8 +94,9 @@ namespace WhatGoesAround.Phone.ViewModels
                 this.CurrentButtonSequence.Clear();
             });
 
+            var reflexTimeMs = DateTime.Now.Subtract(this._sequenceBeginTime).Milliseconds;
             // send button press sequence to server
-            await this.hubClient.SendButtonCombinationAsync(this.AppSettings.CurrentPlayerId, this.AppSettings.CurrentPlayerName, combinationToSend);
+            await this.hubClient.SendButtonCombinationAsync(this.AppSettings.CurrentPlayerId, this.AppSettings.CurrentPlayerName, combinationToSend, reflexTimeMs);
 
             await _dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
@@ -130,7 +148,7 @@ namespace WhatGoesAround.Phone.ViewModels
             });
         }
 
-        public async void OnBeginPlaySequence(Message message)
+        public async void OnBeginPlaySequence(BeginPlaySequenceMessage message)
         {
 
             await _dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
@@ -138,11 +156,12 @@ namespace WhatGoesAround.Phone.ViewModels
                 Utils.Utils.GetRandomPositions(this, 600, 600);
                 this.ButtonsVisible = true;
                 this.CurrentButtonSequence.Clear();
+                this._sequenceBeginTime = DateTime.Now;
             });
 
         }
 
-        public async void OnEndPlaySequence(Message message)
+        public async void OnEndPlaySequence(EndPlaySequenceMessage message)
         {
             await _dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
@@ -158,7 +177,6 @@ namespace WhatGoesAround.Phone.ViewModels
         public void HandleButtonClick(int buttonId)
         {
             CurrentButtonSequence.Add(buttonId);
-            _lastClickTime = DateTime.Now;
             this._buttonPressTimer.Change(500, Timeout.Infinite); // reset the timer
         }
 
