@@ -9,6 +9,7 @@ namespace WhatGoesAround.Web
 {
     public class WGAHub : Hub
     {
+        Dictionary<string, string> DeviceRegister = new Dictionary<string, string>();
         public void Hello()
         {
             Clients.All.hello();
@@ -22,6 +23,19 @@ namespace WhatGoesAround.Web
         public void BroadCast(Message message)
         {
             Clients.All.BroadCast(message);
+        }
+
+        public void SelectPlayer(Common.Action action)
+        {
+            Clients.All.SelectPlayer(action);
+        }
+
+        public void Register(string deviceId)
+        {
+            if (!DeviceRegister.ContainsKey(deviceId))
+                DeviceRegister.Add(deviceId, Context.ConnectionId);
+            else
+                DeviceRegister[deviceId] = Context.ConnectionId;
         }
     }
 }

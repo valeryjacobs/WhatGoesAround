@@ -10,6 +10,8 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <TextBlock x:Name="GpioStatus" HorizontalAlignment="Left" Margin="55,71,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="20" Width="224"/>
         <TextBlock x:Name="InputSignal" HorizontalAlignment="Left" Margin="55,96,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
+        <Ellipse x:Name="redCircle" Fill="#FFFF0100" HorizontalAlignment="Left" Height="86" Margin="55,168,0,0" Stroke="Black" VerticalAlignment="Top" Width="94"/>
+        <Ellipse x:Name="blueCircle" Fill="Blue" HorizontalAlignment="Left" Height="86" Margin="185,168,0,0" Stroke="Black" VerticalAlignment="Top" Width="94"/>
 
     </Grid>
 </Page>

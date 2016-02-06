@@ -12,9 +12,12 @@ namespace ConsoleApplication1
 {
     class Program
     {
-        static void Main(string[] args)
+         static void Main(string[] args)
         {
+
             var hubConnection = new HubConnection("http://whatgoesaroundcomesaround.azurewebsites.net/");
+            //http://localhost:11615/
+            //var hubConnection = new HubConnection("http://localhost:11615/");
 
             var chat = hubConnection.CreateHubProxy("WGAHub");
             chat.On<string, string>("Send", (name, message) =>
@@ -53,6 +56,7 @@ namespace ConsoleApplication1
 
             hubConnection.Start().Wait();
 
+            string DeviceId = "A";
             //chat.Invoke("Notify", "Console app", hubConnection.ConnectionId);
             string msg = null;
 
@@ -60,14 +64,23 @@ namespace ConsoleApplication1
             {
                 switch(msg)
                 {
-                    case " ":
-                        chat.Invoke("BroadCast", new WhatGoesAround.Common.BeginGameMessage());
-                        break;
                     case "x":
                         chat.Invoke("BroadCast", new WhatGoesAround.Common.EndRoundMessage(1));
                         break;
                     case "s":
                         chat.Invoke("BroadCast", new WhatGoesAround.Common.BeginRoundMessage(new Random().Next(0,10)));
+                        break;
+                    case "red":
+                        chat.Invoke("SelectPlayer", new WhatGoesAround.Common.Action(){DeviceId = DeviceId, red = true, blue = false });
+                        break;
+                    case "blue":
+                        chat.Invoke("SelectPlayer", new WhatGoesAround.Common.Action() { DeviceId = DeviceId, red = false, blue = true });
+                        break;
+                    case "all":
+                        chat.Invoke("SelectPlayer", new WhatGoesAround.Common.Action() { DeviceId = "All", red = true, blue = true });
+                        break;
+                    case "off":
+                        chat.Invoke("SelectPlayer", new WhatGoesAround.Common.Action() { DeviceId = "All", red = false, blue = false });
                         break;
                 }
                 //chat.Invoke("Send", "Console app", msg).Wait();

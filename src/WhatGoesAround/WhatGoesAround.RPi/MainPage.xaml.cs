@@ -15,6 +15,9 @@ using Windows.UI.Xaml.Navigation;
 using Windows.Devices.Gpio;
 using Microsoft.AspNet.SignalR.Client;
 using Newtonsoft.Json;
+using System.Threading;
+using Windows.UI.Core;
+using WhatGoesAround.Common;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -25,8 +28,12 @@ namespace WhatGoesAround.RPi
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private const string signalRHub = "http://whatgoesaroundweb.azurewebsites.net/";
+         private const string signalRHub = "http://whatgoesaroundcomesaround.azurewebsites.net/";
+        //http://localhost:11615/
+        //private const string signalRHub = "http://localhost:11615/";
         private const string signalRHubProxy = "WGAHub";
+        private const string _piID = "A";
+
         private const int LED_PIN = 5;
         private const int BLUE_PIN = 6;
         private const int INTERAL_PIN = 13;
@@ -37,48 +44,51 @@ namespace WhatGoesAround.RPi
         private SolidColorBrush redBrush = new SolidColorBrush(Windows.UI.Colors.Red);
         private SolidColorBrush grayBrush = new SolidColorBrush(Windows.UI.Colors.LightGray);
         private DispatcherTimer dispatcherTimer;
+        private int timerCount = 0;
+        private string _connectionid = "";
 
         public MainPage()
         {
             InitializeComponent();
             InitGPIO();
-            InitTimer();
             var hubConnection = new HubConnection(signalRHub);
             var chat = hubConnection.CreateHubProxy(signalRHubProxy);
-            chat.On<string, string>("Send", (name, message) =>
-            {
-                InputSignal.Text = string.Format("{0},{1}",name,message);
-                //JsonConvert.DeserializeObject<>(message);
-                SetLeds(message);
+            chat.On <Common.Action>("SelectPlayer", (message) =>
+            {              
+                if(message.DeviceId == _piID || message.DeviceId == "All")
+                    SetLeds(message);
             });
 
             hubConnection.Start().Wait();
+            _connectionid = hubConnection.ConnectionId;
+            chat.Invoke<string>("Register", _piID);
         }
 
-        private void SetLeds(string message)
+        private void SetLeds(Common.Action message)
         {
-            switch (message)
+            SetLedPin(redPin, GpioPinValue.Low);
+            SetLedPin(bluePin, GpioPinValue.High);
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            () =>
             {
-                case "red":
-
-                    break;
-                case "blue":
-                    break;
-                default:
-                    break;
+                redCircle.Visibility = message.red ? Visibility.Visible : Visibility.Collapsed ;
+                blueCircle.Visibility = message.blue ? Visibility.Visible : Visibility.Collapsed;
             }
+            );
+
         }
 
+        
         private void SetLedPin(GpioPin pin, GpioPinValue pinValue)
         {
-
+            pin.Write(pinValue);
         }
 
-        private void InitTimer()
+        private void DiscoLeds()
         {
             dispatcherTimer = new DispatcherTimer();
             dispatcherTimer.Tick += dispatcherTimer_Tick;
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 0,200);
             dispatcherTimer.Start();
         }
 
@@ -97,7 +107,10 @@ namespace WhatGoesAround.RPi
             }
             redPin.Write(redPinValue);
             bluePin.Write(bluePinValue);
-            
+
+            timerCount += 200;
+            if (timerCount > 5000)
+                dispatcherTimer.Stop();            
         }
 
         private void InitGPIO()
