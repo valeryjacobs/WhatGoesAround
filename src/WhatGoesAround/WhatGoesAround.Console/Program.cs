@@ -19,7 +19,7 @@ namespace ConsoleApplication1
             var chat = hubConnection.CreateHubProxy("WGAHub");
             chat.On<string, string>("Send", (name, message) =>
             {
-
+                Console.WriteLine(message);
             });
 
             chat.On<Message>("BroadCast", (message) =>
@@ -58,8 +58,8 @@ namespace ConsoleApplication1
 
             while ((msg = Console.ReadLine()) != null)
             {
-                //chat.Invoke("Send", "Console app", msg).Wait();
-                chat.Invoke("BroadCast", new BeginGameMessage { MessageType = "Start" });
+                chat.Invoke("Send", "Console app", msg).Wait();
+               // chat.Invoke("BroadCast", new BeginGameMessage { MessageType = "Start" });
             }
         }
     }
