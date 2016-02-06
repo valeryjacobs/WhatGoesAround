@@ -291,9 +291,6 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
-    <Content Include="ApplicationInsights.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <None Include="Properties\PublishProfiles\WhatGoesAround.pubxml" />
     <None Include="Properties\PublishProfiles\whatgoesaroundcomesaround.pubxml" />
     <None Include="Properties\PublishProfiles\WhatGoesAroundWeb.pubxml" />

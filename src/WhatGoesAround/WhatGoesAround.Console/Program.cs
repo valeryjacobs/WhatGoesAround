@@ -24,7 +24,7 @@ namespace ConsoleApplication1
 
             chat.On<Message>("BroadCast", (message) =>
               {
-                  if (true)
+                  if (message is WhatGoesAround.Common.BeginGameMessage)
                   {
                       CloudStorageAccount storageAccount = CloudStorageAccount.Parse("DefaultEndpointsProtocol=https;AccountName=whatgoesaround;AccountKey=C8SboSwUJtGB9fglsPZmRduVVGwuab/8zhYaLHQtqzgOTfDYL4kYTGPvHcADGl0VUeRDcwNXiMTZvVuT9BCsAA==");
 
@@ -58,8 +58,19 @@ namespace ConsoleApplication1
 
             while ((msg = Console.ReadLine()) != null)
             {
-                chat.Invoke("Send", "Console app", msg).Wait();
-               // chat.Invoke("BroadCast", new BeginGameMessage { MessageType = "Start" });
+                switch(msg)
+                {
+                    case " ":
+                        chat.Invoke("BroadCast", new WhatGoesAround.Common.BeginGameMessage());
+                        break;
+                    case "x":
+                        chat.Invoke("BroadCast", new WhatGoesAround.Common.EndRoundMessage(1));
+                        break;
+                    case "s":
+                        chat.Invoke("BroadCast", new WhatGoesAround.Common.BeginRoundMessage(new Random().Next(0,10)));
+                        break;
+                }
+                //chat.Invoke("Send", "Console app", msg).Wait();
             }
         }
     }
