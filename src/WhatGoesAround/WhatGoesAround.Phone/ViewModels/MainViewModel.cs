@@ -25,6 +25,7 @@ namespace WhatGoesAround.Phone.ViewModels
         private bool _buttonsVisible;
 
         private DateTime _sequenceBeginTime;
+        private DateTime _lastButtonClickTime;
         private CoreDispatcher _dispatcher;
         private string _displayMessage;
         private Timer _buttonPressTimer;
@@ -98,7 +99,7 @@ namespace WhatGoesAround.Phone.ViewModels
                 this.CurrentButtonSequence.Clear();
             });
 
-            var reflexTimeMs = DateTime.Now.Subtract(this._sequenceBeginTime).Milliseconds;
+            var reflexTimeMs = this._lastButtonClickTime.Subtract(this._sequenceBeginTime).Milliseconds;
             // send button press sequence to server
             await this.hubClient.SendButtonCombinationAsync(this.AppSettings.CurrentPlayerId, this.AppSettings.CurrentPlayerName, combinationToSend, reflexTimeMs);
 
@@ -186,6 +187,7 @@ namespace WhatGoesAround.Phone.ViewModels
         public void HandleButtonClick(int buttonId)
         {
             CurrentButtonSequence.Add(buttonId);
+            this._lastButtonClickTime = DateTime.Now;
             this._buttonPressTimer.Change(500, Timeout.Infinite); // reset the timer
         }
 
