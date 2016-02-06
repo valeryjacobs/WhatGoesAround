@@ -54,6 +54,7 @@ namespace WhatGoesAround.Phone
             ViewModel.AppSettings = new AppSettingsViewModel();
             ViewModel.AppSettings.LoadFromSettings(Windows.Storage.ApplicationData.Current.LocalSettings.Values);
 
+            await this.ViewModel.RegisterPlayer();
         }
     }
 }

@@ -105,6 +105,11 @@ namespace WhatGoesAround.Phone.ViewModels
             });
         }
 
+        public async Task RegisterPlayer()
+        {
+            await this.hubClient.RegisterPlayerAsync(this.AppSettings.CurrentPlayerId, this.AppSettings.CurrentPlayerName);
+        }
+
 
         #region Game Event handlers
 

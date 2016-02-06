@@ -62,7 +62,18 @@ namespace WhatGoesAround.Phone.Client
 
 
                 hubConnection.Start().Wait();
-                chat.Invoke<string>("RegisterPlayer", deviceId, playerName);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+        }
+
+        public async Task RegisterPlayerAsync(string deviceId, string playerName)
+        {
+            try
+            {
+                await chat.Invoke<string>("RegisterPlayer", deviceId, playerName);
             }
             catch (Exception ex)
             {
@@ -82,7 +93,7 @@ namespace WhatGoesAround.Phone.Client
                 foreach (var i in message.ButtonIds)
                     Debug.Write(i + ",");
                 Debug.WriteLine(String.Empty);
-                await chat.Invoke("PushButtonCombination", buttonCombination);
+                await chat.Invoke("PushButtonCombination", message);
             }
             catch (Exception ex)
             {
