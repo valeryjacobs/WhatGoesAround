@@ -14,6 +14,8 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.Devices.Gpio;
 using Microsoft.AspNet.SignalR.Client;
+using Newtonsoft.Json;
+
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 namespace WhatGoesAround.RPi
@@ -46,11 +48,30 @@ namespace WhatGoesAround.RPi
             chat.On<string, string>("Send", (name, message) =>
             {
                 InputSignal.Text = string.Format("{0},{1}",name,message);
-                
-
+                //JsonConvert.DeserializeObject<>(message);
+                SetLeds(message);
             });
 
             hubConnection.Start().Wait();
+        }
+
+        private void SetLeds(string message)
+        {
+            switch (message)
+            {
+                case "red":
+
+                    break;
+                case "blue":
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void SetLedPin(GpioPin pin, GpioPinValue pinValue)
+        {
+
         }
 
         private void InitTimer()
