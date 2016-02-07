@@ -32,7 +32,7 @@ namespace WhatGoesAround.RPi
         //http://localhost:11615/
         //private const string signalRHub = "http://localhost:11615/";
         private const string signalRHubProxy = "WGAHub";
-        private const string _piID = "C0";
+        private const string _piID = "D";
 
         private const int LED_PIN = 5;
         private const int BLUE_PIN = 6;
@@ -70,17 +70,23 @@ namespace WhatGoesAround.RPi
             SetLedPin(bluePin, message.Blue ? GpioPinValue.Low : GpioPinValue.High);
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
             () =>
-            {
-                redCircle.Visibility = message.Red ? Visibility.Visible : Visibility.Collapsed;
-                blueCircle.Visibility = message.Blue ? Visibility.Visible : Visibility.Collapsed;
-            }
+                {
+                    redCircle.Visibility = message.Red ? Visibility.Visible : Visibility.Collapsed;
+                    blueCircle.Visibility = message.Blue ? Visibility.Visible : Visibility.Collapsed;
+                }
             );
 
             //Wait and turn off the leds
             System.Threading.Tasks.Task.Delay(2000).Wait();
             SetLedPin(redPin, GpioPinValue.High);
             SetLedPin(bluePin, GpioPinValue.High);
-
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            () =>
+                {
+                    redCircle.Visibility = Visibility.Collapsed;
+                    blueCircle.Visibility =Visibility.Collapsed;
+                }
+            );
         }
 
 
