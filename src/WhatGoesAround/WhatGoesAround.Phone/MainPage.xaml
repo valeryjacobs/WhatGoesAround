@@ -73,23 +73,40 @@
                      Width="{x:Bind Path=ViewModel.Button1.Size, Mode=OneWay}"
                      Height="{x:Bind Path=ViewModel.Button1.Size, Mode=OneWay}"
                      Visibility="{x:Bind Path=ViewModel.ButtonsVisible, Mode=OneWay, Converter={StaticResource VisibilityConverter}}"
-                    >               
+                    >
 
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Grid>
                             <Ellipse StrokeThickness="15">
                                 <Ellipse.Fill>
-                                    <SolidColorBrush Color="Red"/>
+                                    <SolidColorBrush x:Name="fillBrush" Color="Red"/>
                                 </Ellipse.Fill>
                                 <Ellipse.Stroke>
-                                    <SolidColorBrush Color="DarkRed"/>
+                                    <SolidColorBrush x:Name="strokeBrush" Color="DarkRed"/>
                                 </Ellipse.Stroke>
                             </Ellipse>
                             <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal">
+                                        <Storyboard>
+                                            <ColorAnimation To="Red" Storyboard.TargetName="fillBrush" Storyboard.TargetProperty="Color" Duration="0:0:0.2"/>
+                                            <ColorAnimation To="DarkRed" Storyboard.TargetName="strokeBrush" Storyboard.TargetProperty="Color" Duration="0:0:0.2"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ColorAnimation To="DarkRed" Storyboard.TargetName="fillBrush" Storyboard.TargetProperty="Color" Duration="0:0:0.2"/>
+                                            <ColorAnimation To="Black" Storyboard.TargetName="strokeBrush" Storyboard.TargetProperty="Color" Duration="0:0:0.2"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
                         </Grid>
                     </ControlTemplate>
                 </Button.Template>
+
             </Button>
             
             <Button x:Name="button2" Content="" Click="button2_Click" 
@@ -104,13 +121,29 @@
                         <Grid>
                             <Ellipse StrokeThickness="15">
                                 <Ellipse.Fill>
-                                    <SolidColorBrush Color="Blue"/>
+                                    <SolidColorBrush x:Name="fillBrush" Color="Blue"/>
                                 </Ellipse.Fill>
                                 <Ellipse.Stroke>
-                                    <SolidColorBrush Color="DarkBlue"/>
+                                    <SolidColorBrush x:Name="strokeBrush" Color="DarkBlue"/>
                                 </Ellipse.Stroke>
                             </Ellipse>
                             <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal">
+                                        <Storyboard>
+                                            <ColorAnimation To="Blue" Storyboard.TargetName="fillBrush" Storyboard.TargetProperty="Color" Duration="0:0:0.2"/>
+                                            <ColorAnimation To="DarkBlue" Storyboard.TargetName="strokeBrush" Storyboard.TargetProperty="Color" Duration="0:0:0.2"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ColorAnimation To="DarkBlue" Storyboard.TargetName="fillBrush" Storyboard.TargetProperty="Color" Duration="0:0:0.2"/>
+                                            <ColorAnimation To="Black" Storyboard.TargetName="strokeBrush" Storyboard.TargetProperty="Color" Duration="0:0:0.2"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
                         </Grid>
                     </ControlTemplate>
                 </Button.Template>

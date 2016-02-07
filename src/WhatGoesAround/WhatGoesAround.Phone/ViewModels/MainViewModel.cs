@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -71,20 +72,20 @@ namespace WhatGoesAround.Phone.ViewModels
             this.hubClient = new HubClient(this);
 
             // DEBUG
-            _ticker = new Timer(TickerElapsed, null, 2000, Timeout.Infinite);
+            //_ticker = new Timer(TickerElapsed, null, 2000, Timeout.Infinite);
 
             // DEBUG scores
-            //var testScores = new Dictionary<string, int>();
-            //testScores.Add("Sorin", 45);
-            //testScores.Add("David", 8);
-            //testScores.Add("Eric", 39);
-            //testScores.Add("Johny", 66);
+            var testScores = new Dictionary<string, int>();
+            testScores.Add("Sorin", 45);
+            testScores.Add("David", 8);
+            testScores.Add("Eric", 39);
+            testScores.Add("Johny", 66);
 
-            //this.OnPlayerScoresUpdating(
-            //    new UpdatePlayerScoresMessage()
-            //    {
-            //        PlayerScores = testScores
-            //    });
+            this.OnPlayerScoresUpdating(
+                new UpdatePlayerScoresMessage()
+                {
+                    PlayerScores = testScores
+                });
         }
 
         public async void TickerElapsed(Object stateInfo)
@@ -125,7 +126,13 @@ namespace WhatGoesAround.Phone.ViewModels
 
         public async Task RegisterPlayer()
         {
-            await this.hubClient.RegisterPlayerAsync(this.AppSettings.CurrentPlayerId, this.AppSettings.CurrentPlayerName);
+            try {
+                await this.hubClient.RegisterPlayerAsync(this.AppSettings.CurrentPlayerId, this.AppSettings.CurrentPlayerName);
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex);
+            }
         }
 
 
