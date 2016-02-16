@@ -25,8 +25,7 @@ namespace ConsoleApplication1
             //http://localhost:11615/
             //var hubConnection = new HubConnection("http://localhost:11615/");
 
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse("DefaultEndpointsProtocol=https;AccountName=whatgoesaround;AccountKey=C8SboSwUJtGB9fglsPZmRduVVGwuab/8zhYaLHQtqzgOTfDYL4kYTGPvHcADGl0VUeRDcwNXiMTZvVuT9BCsAA==");
-
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse("DefaultEndpointsProtocol=https;AccountName=whatgoesaround;AccountKey=C8SboSwUJtGB9fglsPZmRyou wish
             // Create the table client.
             CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
 
